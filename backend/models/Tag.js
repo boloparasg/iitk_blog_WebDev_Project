@@ -1,5 +1,5 @@
-const mongoose=require('mongoose');
-import Blog from './Blog';
+import mongoose from 'mongoose';
+import Blog from './Blog.js';
 const tagSchema=new mongoose.Schema({
     id:{
         type:String,

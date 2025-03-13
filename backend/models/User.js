@@ -1,6 +1,6 @@
-const mongoose=require('mongoose');
-import User from './User';
-import Comment from './Comment';
+import mongoose from 'mongoose';
+import User from './User.js';
+import Comment from './Comment.js';
 const userSchema=new mongoose.Schema({
     name:{
         type:String,
@@ -27,7 +27,6 @@ const userSchema=new mongoose.Schema({
     JoinDate:{
         type:Date,
         default:Date.now,
-        required:true
     },
     IsBlocked:{
         type:Boolean,

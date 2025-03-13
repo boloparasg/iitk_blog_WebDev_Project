@@ -1,6 +1,7 @@
-const mongoose=require('mongoose'); 
+import mongoose from 'mongoose';
 
-require('dotenv').config({ path: '../.env' });
+import dotenv from 'dotenv';
+dotenv.config();
 const mongoURL=process.env.MONGO_URL;
 mongoose.connect(mongoURL,{useNewUrlParser:true,useUnifiedTopology:true})
 const db=mongoose.connection;
@@ -11,4 +12,4 @@ db.on('open',()=>{
 db.on('disconnected',()=>{
     console.log('Disconnected from MongoDB');
 });
-module.exports=db;
+export default db;

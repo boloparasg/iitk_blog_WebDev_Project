@@ -1,7 +1,7 @@
-const mongoose=require('mongoose');
-import User from './User';
-import Comment from './Comment';
-import Tag from './Tag';
+import mongoose from 'mongoose';
+import User from './User.js';
+import Comment from './Comment.js';
+import Tag from './Tag.js';
 
 const blogSchema=new mongoose.Schema({
     title:{
