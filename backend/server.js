@@ -1,13 +1,13 @@
 // backend/server.js
 
-import Blog from './models/Blog.js';
-import mongoose from 'mongoose';
-import User from './models/User.js';
-import Comment from './models/Comment.js';
-import Tag from './models/Tag.js';
+import blog from './Routes/blog.js'
+import tag from './Routes/tag.js'
+import user from './Routes/user.js'
+import comment from './Routes/comment.js'
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import db from './config/db.js';
 
 const app = express();
 const PORT = 3001;
@@ -15,8 +15,11 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/api/blog',blog);
+app.use('/api/user',user);
+app.use('/api/tag',tag);
+app.use('/api/comment',comment);
 
-import db from './config/db.js';
 
 
 app.get("/", (req, res) => {
@@ -29,51 +32,6 @@ app.get("/api/about", (req, res) => {
 });
 
 
-app.post("/api/post/Blogs",(req, res) => {
-  const newPost = req.body;
-  const blog=new Blog(newPost);
-  blog.save()
-  .then(()=>{console.log('Blog saved');
-  res.json(newPost);}
-  )
-  .catch((err)=>{console.log(err);
-})
-
-});
-
-app.post("/api/post/Users", (req, res) => {
-   const newUser = req.body;
-   const new_User= new User(newUser);
-   new_User.save()
-  .then(()=>{console.log('User saved');
-  res.json(newUser);})
-  .catch((err)=>{
-    res.status(500).json({error:err});
-    console.log(err); 
-  })
-});
-
-app.post("/api/post/Comments", (req, res) => {
-  const newComment = req.body;
-  const comment=new Comment(newComment);
-  comment.save()
-  .then(()=>{console.log('Comment saved');
-  res.json(newComment);}
-  )
-  .catch((err)=>{console.log(err);
-})
-});
-
-app.post("/api/post/Tags", (req, res) => {
-  const newTag = req.body;
-  const tag=new Tag(newTag);
-  tag.save()
-  .then(()=>{console.log('Tag saved');
-  res.json(newTag);}
-  )
-  .catch((err)=>{console.log(err);
-})
-});
 
 
 

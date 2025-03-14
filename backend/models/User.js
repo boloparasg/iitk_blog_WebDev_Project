@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import User from './User.js';
 import Comment from './Comment.js';
+import Blog from './Blog.js';
 const userSchema=new mongoose.Schema({
     name:{
         type:String,
@@ -36,6 +37,10 @@ const userSchema=new mongoose.Schema({
         type:String,
         default:""
     },
+    Blogs:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Blog'
+    }],
 });
 
 export default mongoose.model('User',userSchema);
