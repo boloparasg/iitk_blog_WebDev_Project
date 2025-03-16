@@ -10,16 +10,17 @@ import bodyParser from 'body-parser';
 import db from './config/db.js';
 
 const app = express();
-const PORT = 3000;
+const PORT = 6000;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api/blog',blog);
-app.use('/api/user',user);
+app.use('/api/blog', blog);
+app.use('/api/user', user);
 
-app.use('/api/tag',tag);
-app.use('/api/comment',comment);
+app.use('/api/tag', tag);
+app.use('/api/comment', comment);
+
 
 
 
@@ -31,7 +32,6 @@ app.get("/", (req, res) => {
 app.get("/api/about", (req, res) => {
   res.json({ message: "this is about!" });
 });
-
 
 
 
