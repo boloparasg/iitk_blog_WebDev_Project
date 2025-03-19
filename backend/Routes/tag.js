@@ -1,100 +1,24 @@
 import express from 'express'
 const router = express.Router({ mergeParams: true });
-import Tag from './../models/Tag.js'
-import Blog from './../models/Blog.js'
-import mongoose from 'mongoose';
-
+import { postTag,getTag,deleteTag,patchTag,putTag } from '../controllers/tag.js';
 router.post("/post", async (req, res) => {
-  try {
-    const newTag = req.body;
-    const blog = await Blog.findOne({ _id: newTag.blogs });
-    if (!blog) return res.status(404).json({ error: "Blog not found" });
-
-    const tag = new Tag(newTag);
-    await tag.save();
-
-    blog.tags.push(tag._id);
-    await blog.save();
-    res.json(newTag);
-  }
-  catch (err) {
-    res.status(500).json({ error: err });
-    console.log(err);
-  }
+  postTag(req, res);
 });
 
 router.get("/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ error: "Invalid tag ID" });
-    }
-    const tags = await Tag.findOne({ _id: id });
-    if (!tags) return res.status(404).json({ error: "Tag not found" });
-    res.json(tags);
-  }
-  catch (err) {
-    res.status(500).json({ error: err });
-    console.log(err);
-  }
+  getTag(req, res);
 });
 
 router.delete("/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ error: "Invalid tag ID" });
-    }
-    const tags = await Tag.findOneAndDelete({ _id: id });
-    if (!tags) return res.status(404).json({ error: "Tag not found" });
-    res.json(tags);
-  }
-  catch (err) {
-    res.status(500).json({ error: err });
-    console.log(err);
-  }
+  deleteTag(req, res);
 });
 
 router.patch("/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ error: "Invalid tag ID" });
-    }
-    console.log(req.body);
-    console.log(req.body.blogs)
-    const tags = await Tag.findOneAndUpdate({ _id: id }, { $set: req.body }, { new: true, runValidators: true });
-    if (!tags) return res.status(404).json({ error: "Tag not found" });
-    res.json(tags);
-  }
-  catch (err) {
-    res.status(500).json({ error: err });
-    console.log(err);
-  }
+  patchTag(req, res);
 });
 
 router.put("/add/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ error: "Invalid tag ID" });
-    }
-    const blog_id = req.body.blog_id;
-    const tag = await Tag.findOne({ _id: id });
-    if (!tag) return res.status(404).json({ error: "Tag not found" });
-    const blog = await Blog
-      .findOne({ _id: blog_id });
-    if (!blog) { return res.status(404).json({ error: "Blog not found" }) }
-    Blog.tags.push(tag._id);
-    await blog.save();
-    tag.blogs.push(blog._id);
-    await tag.save();
-    return res.json(tag);
-  }
-  catch (err) {
-    res.status(500).json({ error: err });
-    console.log(err);
-  }
+  putTag(req, res);
 });
 
 export default router;
