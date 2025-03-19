@@ -49,6 +49,9 @@ async function deleteBlog(req , res){
         if (!mongoose.Types.ObjectId.isValid(id)) {
           return res.status(400).json({ error: "Invalid blog ID" });
         }
+        await User.updateMany({ Blogs: { $in: [id] } }, { $pull: { Blogs: id } });
+        await Tag.updateMany({ blogs: { $in: [id] } }, { $pull: { blogs: id } });
+        await Comment.deleteMany({ ParentBlogId: id });
         const blogs = await Blog.findOneAndDelete({ _id: id });
         if (!blogs) return res.status(404).json({ error: "Blog not found" });
         res.json(blogs);

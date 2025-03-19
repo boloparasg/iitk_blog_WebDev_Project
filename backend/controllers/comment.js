@@ -1,12 +1,12 @@
 import Blog from './../models/Blog.js'
-import Comment from './../models/Blog.js'
+import Comment from './../models/Comment.js'
 import mongoose from 'mongoose';
 
 async function postComment(req, res) {
     try {
         const newComment = req.body;
         const blog = await Blog.findOne({
-          _id: newComment.blog
+          _id: newComment.ParentBlogId
         })
     
         if (!blog) { return res.status(404).json({ error: "Blog not found" }) }

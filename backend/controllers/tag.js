@@ -87,11 +87,12 @@ async function patchTag(req, res) {
          const blog = await Blog
            .findOne({ _id: blog_id });
          if (!blog) { return res.status(404).json({ error: "Blog not found" }) }
-         Blog.tags.push(tag._id);
+         blog.tags.push(tag._id);
          await blog.save();
          tag.blogs.push(blog._id);
          await tag.save();
-         return res.json(tag);
+         const updatedTag = await Tag.findOne({ _id: id });
+         return res.json(updatedTag);
        }
        catch (err) {
          res.status(500).json({ error: err });
