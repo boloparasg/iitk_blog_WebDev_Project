@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import Home from './Home';
 import About from './About';
 import Posts from './Posts';
-
+import Login from './pages/login';
 function App() {
   return (
     <Router>
@@ -13,6 +13,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/posts" element={<Posts />} />
         </Routes>

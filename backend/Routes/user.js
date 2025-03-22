@@ -1,9 +1,14 @@
 import express from 'express'
 const router = express.Router({ mergeParams: true });
-import { createUser, getUser, deleteUser, updateUser} from './../controllers/user.js';
+import { createUser, getUser, deleteUser, updateUser,loginUser} from './../controllers/user.js';
 
 router.post("/post", async (req, res) => {
   createUser(req, res);
+});
+
+
+router.get("/login", async (req, res) => {
+  loginUser(req, res);
 });
 
 router.get("/:id", async (req, res) => {

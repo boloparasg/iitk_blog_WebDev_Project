@@ -3,19 +3,21 @@ import mongoose from 'mongoose'
 import Blog from './../models/Blog.js'
 import Tag from './../models/Tag.js'
 import Comment from './../models/Comment.js'
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 const SECRET_KEY = process.env.JWT_SECRET || 'your_secret_key';
 
 const iitkEmailRegex = /^[a-zA-Z0-9._%+-]+@iitk\.ac\.in$/;
-    if (!iitkEmailRegex.test(email)) {
-      return res.status(400).json({ error: "Only for IITK junta" });
-    }
+ 
 
 async function createUser(req, res) {
   try {
     const { name, email, password } = req.body;
+
+    if (!iitkEmailRegex.test(email)) {
+      return res.status(400).json({ error: "Only for IITK junta" });
+    }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {

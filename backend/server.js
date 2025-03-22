@@ -27,7 +27,6 @@ app.use('/api/comment', comment);
 
 
 
-
 app.get("/", (req, res) => {
   res.json({ message: "hello there, this is backend!" });
 });
