@@ -1,5 +1,12 @@
 {
   "dependencies": {
-    "git": "^0.1.5"
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
+    "git": "^0.1.5",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.10.0"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.9"
   }
 }
