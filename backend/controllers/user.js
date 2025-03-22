@@ -8,6 +8,11 @@ const jwt = require('jsonwebtoken');
 
 const SECRET_KEY = process.env.JWT_SECRET || 'your_secret_key';
 
+const iitkEmailRegex = /^[a-zA-Z0-9._%+-]+@iitk\.ac\.in$/;
+    if (!iitkEmailRegex.test(email)) {
+      return res.status(400).json({ error: "Only for IITK junta" });
+    }
+
 async function createUser(req, res) {
   try {
     const { name, email, password } = req.body;
