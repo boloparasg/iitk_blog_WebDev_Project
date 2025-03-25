@@ -23,5 +23,6 @@ router.patch("/:id", async (req, res) => {
   updateUser(req, res);
 });
 
+module.exports = mongoose.model('User', UserSchema);
 
 export default router;

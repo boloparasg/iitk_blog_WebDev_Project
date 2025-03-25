@@ -123,4 +123,7 @@ async function loginUser(req, res) {
   }
 }
 
+
+module.exports = mongoose.model('User', UserSchema);
+
 export { createUser, getUser, deleteUser, updateUser, loginUser }
