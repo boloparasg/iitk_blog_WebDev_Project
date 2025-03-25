@@ -122,65 +122,7 @@ async function loginUser(req, res) {
     res.status(500).json({ error: "Server error" });
   }
 }
-const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true,
-    trim: true,
-    validate: {
-      validator: function(v) {
-        return v.endsWith('@iitk.ac.in');
-      },
-      message: 'Email must be from the iitk.ac.in domain'
-    }
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  role: {
-    type: String,
-    enum: ['user', 'admin'],
-    default: 'user',
-  },
-  // Email verification fields
-  emailVerified: {
-    type: Boolean,
-    default: false,
-  },
-  emailVerificationOTP: {
-    type: String,
-  },
-  emailVerificationOTPExpiry: {
-    type: Date,
-  },
-  // Two-factor authentication fields
-  twoFactorEnabled: {
-    type: Boolean,
-    default: false,
-  },
-  twoFactorSecret: {
-    type: String,
-  },
-  twoFactorOTP: {
-    type: String,
-  },
-  twoFactorOTPExpiry: {
-    type: Date,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
 
 module.exports = mongoose.model('User', UserSchema);
 
